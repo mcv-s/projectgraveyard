@@ -17,6 +17,18 @@
         ⛶
     </button>
     
+    <button id="textButton" class="tool-button" title="Add text">
+        T
+    </button>
+    
+    <button id="lineButton" class="tool-button" title="Add line">
+        /
+    </button>
+    
+    <button id="squareButton" class="tool-button" title="Add square">
+        □
+    </button>
+    
     <button id="plusButton" class="plus-button">+</button>
     
     <div id="sidebar" class="sidebar">
@@ -25,19 +37,47 @@
             <button id="closeButton" class="close-button">&times;</button>
         </div>
         <div class="sidebar-content">
-            <div class="form-group">
-                <label for="projectName">Project Name:</label>
-                <input type="text" id="projectName" placeholder="Enter project name">
+            <!-- Grave Object Section -->
+            <div id="graveSection" class="object-section" style="display: none;">
+                <div class="form-group">
+                    <label for="graveName">Project Name:</label>
+                    <input type="text" id="graveName" placeholder="Enter project name">
+                </div>
+                <div class="form-group">
+                    <label for="graveDescription">Description:</label>
+                    <textarea id="graveDescription" placeholder="Enter description"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="graveEmoji">Icon:</label>
+                    <input type="text" id="graveEmoji" placeholder="enter icon character here">
+                </div>
+                <button id="deleteGraveButton" class="delete-button">Delete</button>
             </div>
-            <div class="form-group">
-                <label for="projectDescription">Description:</label>
-                <textarea id="projectDescription" placeholder="Enter description"></textarea>
+            
+            <!-- Text Object Section -->
+            <div id="textSection" class="object-section" style="display: none;">
+                <div class="form-group">
+                    <label for="textContent">Text Content:</label>
+                    <textarea id="textContent" placeholder="Enter text (supports newlines)" style="font-family: monospace;"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="textSize">Text Size:</label>
+                    <input type="number" id="textSize" min="10" max="100" placeholder="Font size">
+                </div>
+                <button id="deleteTextButton" class="delete-button">Delete</button>
             </div>
-            <div class="form-group">
-                <label for="projectEmoji">Icon:</label>
-                <input type="text" id="projectEmoji" placeholder="enter icon character here">
+            
+            <!-- Line Object Section -->
+            <div id="lineSection" class="object-section" style="display: none;">
+                <p style="color: #999; margin-bottom: 1rem;">Line Object</p>
+                <button id="deleteLineButton" class="delete-button">Delete</button>
             </div>
-            <button id="deleteButton" class="delete-button">Delete Project</button>
+            
+            <!-- Square Object Section -->
+            <div id="squareSection" class="object-section" style="display: none;">
+                <p style="color: #999; margin-bottom: 1rem;">Square Object</p>
+                <button id="deleteSquareButton" class="delete-button">Delete</button>
+            </div>
         </div>
     </div>
     
