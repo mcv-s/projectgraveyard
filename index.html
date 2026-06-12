@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Graveyard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    
+    <button id="shareButton" class="share-button" title="Share / Save graveyard">
+        🔗
+    </button>
+    
+    <button id="centerButton" class="center-button" title="Center view on objects">
+        ⛶
+    </button>
+    
+    <button id="plusButton" class="plus-button">+</button>
+    
+    <div id="sidebar" class="sidebar">
+        <div class="sidebar-header">
+            <h2 id="sidebarTitle">Project Details</h2>
+            <button id="closeButton" class="close-button">&times;</button>
+        </div>
+        <div class="sidebar-content">
+            <div class="form-group">
+                <label for="projectName">Project Name:</label>
+                <input type="text" id="projectName" placeholder="Enter project name">
+            </div>
+            <div class="form-group">
+                <label for="projectDescription">Description:</label>
+                <textarea id="projectDescription" placeholder="Enter description"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="projectEmoji">Icon:</label>
+                <input type="text" id="projectEmoji" placeholder="enter icon character here">
+            </div>
+            <button id="deleteButton" class="delete-button">Delete Project</button>
+        </div>
+    </div>
+    
+    <script src="code.js"></script>
+</body>
+</html>
+
+
