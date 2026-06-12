@@ -38,6 +38,9 @@ class ProjectGraveyard {
         // Mouse position
         this.mouseX = 0;
         this.mouseY = 0;
+
+        this.dragOffsetX = 0;
+        this.dragOffsetY = 0; 
         
         this.init();
     }
@@ -183,8 +186,9 @@ class ProjectGraveyard {
         
         // Resize line endpoint
         if (this.resizingLineEnd) {
-            const worldX = e.clientX - this.offsetX;
-            const worldY = e.clientY - this.offsetY;
+            const world = this.screenToWorld(e.clientX, e.clientY);
+            const worldX = world.x;
+            const worldY = world.y;
             
             if (this.resizingLineEnd.endpoint === 'start') {
                 this.resizingLineEnd.obj.x = worldX;
@@ -263,16 +267,24 @@ class ProjectGraveyard {
     }
     
     handleMouseUp(e) {
-        if (this.isDragging) {
-            this.isDragging = false;
-            this.canvas.classList.remove('canvas-dragging');
-        }
+        // Snap dragged object
         if (this.draggingObject) {
-            this.draggingObject = null;
-            this.canvas.classList.remove('object-dragging');
+            this.draggingObject.x = this.snapToGrid(this.draggingObject.x);
+            this.draggingObject.y = this.snapToGrid(this.draggingObject.y);
+
+            if (this.draggingObject.type === 'line') {
+                this.draggingObject.x2 = this.snapToGrid(this.draggingObject.x2);
+                this.draggingObject.y2 = this.snapToGrid(this.draggingObject.y2);
+            }
         }
+
+        // 🔥 FIX: clear ALL interaction modes
+        this.draggingObject = null;
         this.resizingLineEnd = null;
         this.resizingSquareCorner = null;
+        this.isDragging = false;
+
+        this.canvas.classList.remove('canvas-dragging', 'object-dragging');
     }
     
     handleWheel(e) {
@@ -285,13 +297,15 @@ class ProjectGraveyard {
         const centerX = this.canvas.width / 2;
         const centerY = this.canvas.height / 2;
         
+        const world = this.screenToWorld(centerX, centerY);
+
         const newObject = {
             id: Date.now(),
             type: 'grave',
             name: `Project ${this.objects.length + 1}`,
             description: '',
-            x: centerX - this.offsetX,
-            y: centerY - this.offsetY,
+            x: world.x,
+            y: world.y,
             emoji: '🪦',
             size: 60
         };
@@ -834,6 +848,26 @@ class ProjectGraveyard {
         this.updateCenterButtonVisibility();
         requestAnimationFrame(() => this.animate());
     }
+
+    snapToGrid(value) {
+        const gridSize = 40;
+        return Math.round(value / gridSize) * gridSize;
+    }
+
+    screenToWorld(x, y) {
+        return {
+            x: x - this.offsetX,
+            y: y - this.offsetY
+        };
+    }
+
+    worldToScreen(x, y) {
+        return {
+            x: x + this.offsetX,
+            y: y + this.offsetY
+        };
+    }
+
 }
 
 // Initialize on page load
